@@ -46,7 +46,7 @@ export const google = async (req,res,next) =>{
         const user = await User.findOne({email: req.body.email})
         if (user) {
             //if user exsist then save the user for that create token and save the token in cookie
-            const token = jwt.sign({id: user_id},process.env.JWT_SECRET);
+            const token = jwt.sign({id: user._id},process.env.JWT_SECRET);
             //separate password from saving
             const {password: pass,...rest}= user._doc;
             res
@@ -65,7 +65,7 @@ export const google = async (req,res,next) =>{
                 //create token
                 const token = jwt.sign({id: newUser._id},process.env.JWT_SECRET);
                 const {password: pass, ...rest} = newUser._doc;
-                res.cookie('access_token',token, {httpOnly: true}).status(true).json(rest);
+                res.cookie('access_token',token, {httpOnly: true}).status(200).json(rest);
                 
 
 
