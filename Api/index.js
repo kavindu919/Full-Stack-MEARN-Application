@@ -4,6 +4,7 @@ import dotenv from 'dotenv' // here this use because use of .env file with out t
 import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
+import listingRouter from './routes/listning.route.js'; 
 
 dotenv.config(); // initalized it 
 // connect mongodb like this reason to hide password .env files ignored when uploding git hub
@@ -26,6 +27,8 @@ app.listen(3000, ()=>{
 })
 app.use("/api/user",userRouter);
 app.use("/api/auth",authRouter);
+app.use("/api/listing",listingRouter);
+
 //difine a middleware
 app.use((err,req,res,next)=>{
     const statusCode = err.statusCode || 500;
