@@ -35,3 +35,19 @@ export const updateUser = async (req,res,next) => {
         console.log(error)
     }
 };
+
+export const deleteUser = async (req,res,next) => {
+    //cheak token is ecsisist
+    if(req.user.id !== req.params.id) return next(errorHandler(410,'You can delete only your account!'))
+    try {
+        // delete user
+        await User.findByIdAndDelete(req.params.id);
+        //clear the created cookie
+        res.clearCookie('access_token');
+        res.status(200).json('User deleted Sucsessfully!');
+    } catch (error) {
+        next(error)
+    }
+
+
+} 
