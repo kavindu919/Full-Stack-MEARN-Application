@@ -6,6 +6,7 @@ import {getDownloadURL, getStorage,ref, uploadBytesResumable} from 'firebase/sto
 import {app} from '../firebase'
 import { updateUserStart,updateUserSuccess,updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserStart, signOutUserSuccess } from '../redux/user/userSlice'
 import { useDispatch } from 'react-redux'
+import {Link} from 'react-router-dom'
 
 //firebase rules created us to image uplod
 // service firebase.storage {
@@ -138,6 +139,7 @@ export default function Profile() {
       <input type="email" placeholder='Email' className='border p-3 rounded-lg' id='email' defaultValue={currentUser.email}onChange={handleChange}/> 
       <input type="password" placeholder='Password' className='border p-3 rounded-lg' id='password' onChange={handleChange}/> 
       <button className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>Update</button>
+      <Link className='bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 text-center' to={"/create-listing "} > Create Listning </Link>
       </form>
     <div className='flex justify-between mt-5'>
       <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete Account</span>
