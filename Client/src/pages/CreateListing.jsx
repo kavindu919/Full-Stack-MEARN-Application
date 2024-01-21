@@ -59,6 +59,7 @@ export default function CreateListing() {
 //create image uploading function
 const storeImage = async (file) =>{
   return new Promise((resolve,reject) => {
+    //get storage from fire base
     const storage = getStorage(app);
     //add date for make file name unique
     const filename = new Date().getTime() + file.name;
@@ -226,7 +227,7 @@ const handleChange = (e) =>{
           </div>
       ))
     }
-       <button disabled ={loading || uploading} className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Creating>>' : 'Create listing'}</button>
+       <button disabled ={loading || uploading} className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Creating >>' : 'Create listing'}</button>
        {error && <p className='text-red-700 text-sm'>{error}</p>}
     </div>
     </form>

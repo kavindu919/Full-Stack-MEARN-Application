@@ -1,7 +1,7 @@
 import Listing from "../models/listning.model.js";
 import { errorHandler } from "../utils/error.js";
 
-export const  createListing = async(req,res,next) => {
+export const  createListing = async (req,res,next) => {
    try {
      const listing = await Listing.create(req.body);
      return res.status(201).json(listing)
@@ -29,5 +29,27 @@ export const deleteListing = async (req,res,next) => {
   } catch (error) {
     next(error)
   }
+}
 
+export const updateListing = async (req,res,next) => {
+  //cheak if listing exsist or not
+  const listing = await Listing.findById(req.params.id)
+  if (!listing) {
+    return next(errorHandler(404,'Listing not found'))
+  }
+  //if listing is exsist cheak the user is actual owner of this list
+  if(req.user.id !== listing.userRef){
+    return next(errorHandler(401,'You can only update your own listings '))
+  }
+  //update listings
+  try {
+    const updatedListing = Listing.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {new:true}
+    )
+    res.status(200).json(updatedListing)
+  } catch (error) {
+    next(error)
+  }
 }
