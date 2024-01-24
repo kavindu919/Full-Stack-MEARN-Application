@@ -63,3 +63,19 @@ export const getUserListings = async (req,res, next) => {
         return next(errorHandler('You can only view your own listings!'))
     }
 }
+
+//create api route for the contact land load 
+export const getUser = async (req,res,next) => {
+    try {
+    //get user by id 
+    const user = await User.findById(req.params.id) 
+    //user not exsist
+    if(!user) return next(errorHandler(404,'User Not found!'))
+    //separated password form the rest
+    const {password: pass, ...rest} = user._doc
+    res.status(200).json(rest)
+    }
+    catch (error) {
+        next(error)
+    }
+}

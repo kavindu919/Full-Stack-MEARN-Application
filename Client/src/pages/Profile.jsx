@@ -176,7 +176,15 @@ export default function Profile() {
       <input type="text" placeholder='User Name' className='border p-3 rounded-lg' id='username' defaultValue={currentUser.username } onChange={handleChange}/> 
       <input type="email" placeholder='Email' className='border p-3 rounded-lg' id='email' defaultValue={currentUser.email}onChange={handleChange}/> 
       <input type="password" placeholder='Password' className='border p-3 rounded-lg' id='password' onChange={handleChange}/> 
-      <button className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>Update</button>
+      {/* <button className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80' onChange={handleSubmit}>Update</button> */}
+
+      {/* <button
+          disabled={loading}
+          className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
+        >
+          {loading ? 'Loading...' : 'Update'}
+        </button>  */}
+
       <Link className='bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 text-center' to={"/create-listing "} > Create Listning </Link>
       </form>
     <div className='flex justify-between mt-5'>
@@ -193,7 +201,7 @@ export default function Profile() {
             <Link to={`/listing/${listing._id}`}>
               <img src={listing.imageUrls[0]} alt="listing cover" className='h-16 w-16 object-contain ' />
             </Link>
-            <Link to={`listing/${listing._id}`} className='text-slate-700 font-semibold hover:underline truncate flex-1'>
+            <Link to={`/listing/${listing._id}`} className='text-slate-700 font-semibold hover:underline truncate flex-1'>
               <p >{listing.name}</p>
             </Link>
             <div className='flex flex-col items-center'>

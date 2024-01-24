@@ -43,11 +43,11 @@ export const updateListing = async (req,res,next) => {
   }
   //update listings
   try {
-    const updatedListing = Listing.findByIdAndUpdate(
+    const updatedListing = await Listing.findByIdAndUpdate(
       req.params.id,
       req.body,
       {new:true}
-    )
+    );
     res.status(200).json(updatedListing)
   } catch (error) {
     next(error)

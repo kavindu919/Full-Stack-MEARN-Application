@@ -1,5 +1,5 @@
 import express from "express";
-import { test, updateUser,deleteUser,getUserListings } from "../controllars/user.controllar.js";
+import { test, updateUser,deleteUser,getUserListings,getUser } from "../controllars/user.controllar.js";
 import { verifyToken } from "../utils/verifyUser.js";
 
 const router = express.Router();
@@ -10,5 +10,6 @@ router.post('/update/:id',verifyToken,updateUser)
 router.delete('/delete/:id',verifyToken,deleteUser)
 //create api to listing ids
 router.get('/listings/:id',verifyToken,getUserListings)
-
+//create api route for contact lanloard button and function
+router.get('/:id',verifyToken,getUser)
 export default router;
