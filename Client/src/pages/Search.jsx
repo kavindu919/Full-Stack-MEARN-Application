@@ -16,10 +16,10 @@ export default function Search() {
     //set loading effect
     const [loading,setLoading] = useState(false)
     //listing for fetch
-    const [listing,setListing] = useState([])
+    const [listings,setListings] = useState([])
     //show more function 
     const [showMore,setShowmore] = useState(false)
-
+    
     
     useEffect (() => {
         const urlParams = new URLSearchParams(location.search)
@@ -61,7 +61,7 @@ export default function Search() {
             } else{
                 setShowmore(false)
             }
-            setListing(data)
+            setListings(data)
             setLoading(false)
         }
         fetchListing();
@@ -111,7 +111,7 @@ export default function Search() {
     }
      const onShowMoreClick = async () => {
         //get length of listing
-        const numberOfListings = listing.length;
+        const numberOfListings = listings.length;
         const startIndex = numberOfListings;
         //get urls
         const urlParams = new URLSearchParams(location.search)
@@ -126,7 +126,7 @@ export default function Search() {
         if(data.length < 9){
             setShowmore(false)
         }
-        setListing([...listing, ...data])
+        setListings([...listings, ...data])
      }
   return (
     <div className='flex flex-col md:flex-row '>
@@ -181,20 +181,21 @@ export default function Search() {
         <div className='flex-1'>
             <h1 className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>Listing results:</h1>
             <div className='p-7 flex flex-wrap gap-4'>
-                {!loading && listing.length === 0 && (
+                {!loading && listings.length === 0 && (
                     <p className='text-xl text-slate-700'>No listing found!!!</p>
                 )}
                 {loading && (
                     <p className='text-xl text-slate-700 text-center w-full'>Loading...</p>
                 )}
                 {
-                    !loading && listing && listing.map((listing) =>( 
+                    !loading && listings && listings.map((listing) =>( 
                         <ListingItem key={listing._id} listing={listing}/>
                     ))
                 }
                 {showMore && (
                     <button onClick={onShowMoreClick} className='text-green-700 hover:underline p-7 text-center w-full'>Show More</button>
                 )}
+                
             </div>
         </div>
     </div>
