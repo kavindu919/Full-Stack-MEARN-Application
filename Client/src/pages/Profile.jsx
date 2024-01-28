@@ -22,11 +22,12 @@ import {Link} from 'react-router-dom'
 
 export default function Profile() {
   const fileRef = useRef(null)
-  const {currentUser} = useSelector((state)=>state.user)
+  const {currentUser,loading,error} = useSelector((state)=>state.user)
   const [file,setFile] = useState(undefined)
   const [filePerc,setFilePerc] = useState(0)
   const [fileUploadError,setFileUploadError] = useState(false)
   const [formData,setFormData] = useState({})
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   const [showListingsError,setshowListingsError] = useState(false)
   const [userListings,setUserListings] = useState([])
   const dispatch = useDispatch() 
@@ -78,8 +79,10 @@ export default function Profile() {
         const data = await res.json()
         if (data.success === false){
           dispatch(updateUserFailure(data.message))
+          return;
         }
         dispatch(updateUserSuccess(data))
+        setUpdateSuccess(true)
       } catch (error) {
         dispatch(updateUserFailure(error.message))
       }
@@ -176,14 +179,13 @@ export default function Profile() {
       <input type="text" placeholder='User Name' className='border p-3 rounded-lg' id='username' defaultValue={currentUser.username } onChange={handleChange}/> 
       <input type="email" placeholder='Email' className='border p-3 rounded-lg' id='email' defaultValue={currentUser.email}onChange={handleChange}/> 
       <input type="password" placeholder='Password' className='border p-3 rounded-lg' id='password' onChange={handleChange}/> 
-      {/* <button className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80' onChange={handleSubmit}>Update</button> */}
-
-      {/* <button
+       <button
           disabled={loading}
-          className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
+          className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80' 
+          
         >
           {loading ? 'Loading...' : 'Update'}
-        </button>  */}
+        </button>  
 
       <Link className='bg-green-700 text-white p-3 rounded-lg uppercase hover:opacity-95 text-center' to={"/create-listing "} > Create Listning </Link>
       </form>

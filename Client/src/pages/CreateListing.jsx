@@ -25,7 +25,7 @@ export default function CreateListing() {
     furnished: false,
   })
   const [imageUploadError, setimageUploadError] = useState(false);
-  //for loading effect 
+  //for uploading effect 
   const [uploading,setUploading] =useState(false);
   //for the error handle
   const [error,setError] = useState(false);
